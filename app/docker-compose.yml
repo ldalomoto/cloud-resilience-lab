@@ -1,0 +1,28 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: resilience-backend
+    environment:
+      INSTANCE_ID: backend-local-1
+      REQUEST_TIMEOUT_SEC: "1.0"
+      SLOW_MODE_DELAY_SEC: "2.0"
+      MAX_RETRIES: "2"
+      BASE_BACKOFF_SEC: "0.5"
+      FAILURE_THRESHOLD: "3"
+      RECOVERY_TIMEOUT_SEC: "10.0"
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: resilience-frontend
+    environment:
+      VITE_API_BASE_URL: "http://localhost:8000"
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
