@@ -1,0 +1,28 @@
+# Unit + integration tests (python -m unittest discover -s tests -v)
+# Date: 2026-11-22 13:07:39  Python: Python 3.14.0
+
+test_becomes_half_open_after_recovery_timeout (test_circuit_breaker.CircuitBreakerTests.test_becomes_half_open_after_recovery_timeout) ... ok
+test_half_open_failure_reopens_circuit (test_circuit_breaker.CircuitBreakerTests.test_half_open_failure_reopens_circuit) ... ok
+test_half_open_success_closes_circuit (test_circuit_breaker.CircuitBreakerTests.test_half_open_success_closes_circuit) ... ok
+test_open_circuit_rejects_requests_immediately (test_circuit_breaker.CircuitBreakerTests.test_open_circuit_rejects_requests_immediately) ... ok
+test_opens_when_threshold_is_reached (test_circuit_breaker.CircuitBreakerTests.test_opens_when_threshold_is_reached) ... ok
+test_starts_closed_and_allows_requests (test_circuit_breaker.CircuitBreakerTests.test_starts_closed_and_allows_requests) ... ok
+test_stays_closed_below_threshold (test_circuit_breaker.CircuitBreakerTests.test_stays_closed_below_threshold) ... ok
+test_stays_open_before_recovery_timeout (test_circuit_breaker.CircuitBreakerTests.test_stays_open_before_recovery_timeout) ... ok
+test_success_resets_failure_counter (test_circuit_breaker.CircuitBreakerTests.test_success_resets_failure_counter) ... ok
+test_circuit_opens_after_three_failed_requests_and_then_rejects (test_resilience_service.ResilienceServiceTests.test_circuit_opens_after_three_failed_requests_and_then_rejects) ... ok
+test_circuit_recovers_after_timeout_when_service_is_healthy (test_resilience_service.ResilienceServiceTests.test_circuit_recovers_after_timeout_when_service_is_healthy) ... ok
+test_circuit_reopens_if_trial_request_fails (test_resilience_service.ResilienceServiceTests.test_circuit_reopens_if_trial_request_fails) ... ok
+test_down_mode_ends_in_downstream_error_after_all_attempts (test_resilience_service.ResilienceServiceTests.test_down_mode_ends_in_downstream_error_after_all_attempts) ... ok
+test_normal_mode_returns_ok_with_one_attempt (test_resilience_service.ResilienceServiceTests.test_normal_mode_returns_ok_with_one_attempt) ... ok
+test_open_circuit_rejects_even_healthy_requests (test_resilience_service.ResilienceServiceTests.test_open_circuit_rejects_even_healthy_requests) ... ok
+test_slow_mode_ends_in_timeout_error_after_all_attempts (test_resilience_service.ResilienceServiceTests.test_slow_mode_ends_in_timeout_error_after_all_attempts) ... ok
+test_down_mode_raises_unavailable (test_timeout.TimeoutTests.test_down_mode_raises_unavailable) ... ok
+test_normal_mode_finishes_within_timeout (test_timeout.TimeoutTests.test_normal_mode_finishes_within_timeout) ... ok
+test_slow_mode_exceeds_timeout (test_timeout.TimeoutTests.test_slow_mode_exceeds_timeout) ... ok
+test_timeout_cuts_the_call_instead_of_waiting_for_it (test_timeout.TimeoutTests.test_timeout_cuts_the_call_instead_of_waiting_for_it) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 5.188s
+
+OK
