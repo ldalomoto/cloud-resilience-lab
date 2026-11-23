@@ -1,0 +1,2 @@
+# Shell scripts must keep Linux line endings (they run on EC2 / Linux).
+*.sh text eol=lf
