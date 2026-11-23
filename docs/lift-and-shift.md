@@ -77,7 +77,8 @@ docker compose down
 
 1. **Start the lab** from AWS Academy (**Start Lab**) and open the AWS console in region `us-east-1`.
 2. **Security Group.** EC2 > Security Groups > Create security group. Name: `lift-shift-sg`. Inbound rules:
-   SSH (22) from *My IP*, and Custom TCP (8000) from `0.0.0.0/0`.
+   SSH (22) from `0.0.0.0/0` (the browser-based EC2 Instance Connect connects from AWS-owned addresses, not from
+   the user's IP; acceptable for a short-lived lab, not for production), and Custom TCP (8000) from `0.0.0.0/0`.
 3. **Launch the instance.** EC2 > Launch instance. Name: `lift-and-shift-backend`. AMI: Amazon Linux 2023.
    Type: `t3.micro`. Key pair: `vockey`. Network: default VPC, public subnet, *Auto-assign public IP* enabled.
    Security group: `lift-shift-sg`.
@@ -105,18 +106,31 @@ Evidence is stored in `docs/evidence/lift-and-shift/`.
 - [x] `01b-onpremise-container.png`: Docker Desktop showing the backend container running on port 8000
 
 ![On-premise container running](evidence/lift-and-shift/01b-onpremise-container.png)
-- [ ] `02-ec2-security-group.png`: Security Group inbound rules
-- [ ] `03-ec2-instance-running.png`: EC2 instance running, with its public IP
-- [ ] `04-ec2-bootstrap-output.png`: end of `ec2-bootstrap.sh` showing the container `Up`
-- [ ] `05-aws-check.txt` or screenshot: `check_backend.py` against `http://<EC2_PUBLIC_IP>:8000`
+- [x] `02-ec2-security-group.png`: Security Group inbound rules
 
-### Comparison to fill in
+![Security Group](evidence/lift-and-shift/02-ec2-security-group.png)
 
-| Check | On-premise (`localhost:8000`) | AWS (`EC2_PUBLIC_IP:8000`) |
+- [x] `03-ec2-instance-running.png`: EC2 instance running, with its public IP
+
+![EC2 instance running](evidence/lift-and-shift/03-ec2-instance-running.png)
+
+- [x] `04-ec2-bootstrap-output.png`: end of `ec2-bootstrap.sh` showing the container `Up`
+
+![Bootstrap output](evidence/lift-and-shift/04-ec2-bootstrap-output.png)
+
+- [x] [`05-aws-check.txt`](evidence/lift-and-shift/05-aws-check.txt): `check_backend.py` against `http://3.88.176.45:8000`
+
+### Comparison
+
+| Check | On-premise (`localhost:8000`) | AWS (`3.88.176.45:8000`) |
 |---|---|---|
-| `GET /health` | | |
-| `POST /api/v1/consultar` (normal) | | |
+| `GET /health` | HTTP 200, `healthy` (842 ms) | HTTP 200, `healthy` (312 ms) |
+| `POST /api/v1/consultar` (normal) | HTTP 200, `OK`, circuit `CLOSED` (60 ms) | HTTP 200, `OK`, circuit `CLOSED` (250 ms) |
 | Code changes needed | 0 | 0 |
+
+Both environments return the same responses. The latency differs only because the AWS requests travel over
+the internet, while the on-premise ones stay on the same machine. The instance name `backend-local-1` appears
+in both because it comes from the unchanged `docker-compose.yml`.
 
 ## 7. Trade-offs and limits
 
