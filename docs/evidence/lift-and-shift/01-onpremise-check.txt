@@ -1,0 +1,9 @@
+Target : http://localhost:8000
+Date   : 2026-11-22 18:50:03
+
+[PASS] GET /health -> HTTP 200 in 842 ms
+       {"status": "healthy", "instance": "backend-local-1"}
+[PASS] POST /api/v1/consultar (modo=normal) -> HTTP 200 in 60 ms
+       {"estado": "OK", "intentos": 1, "circuito": "CLOSED", "instancia": "backend-local-1", "detalle": "Downstream operation completed successfully"}
+
+Result: ALL CHECKS PASSED
