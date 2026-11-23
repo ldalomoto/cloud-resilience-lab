@@ -119,9 +119,28 @@ Evidence is stored in `docs/evidence/api-gateway-lb-proxy/`.
 
 ![Containers running](evidence/api-gateway-lb-proxy/03-docker-containers.png)
 
-- [ ] `04-ec2-containers.png`: `docker compose ps` on the EC2 instance
-- [ ] `05-api-gateway-route.png`: API Gateway route and integration
-- [ ] `06-apigw-check.txt`: `check_proxy.py` against the API Gateway URL
+- [x] `04-ec2-containers.png`: `docker compose ps` on the EC2 instance
+
+![Containers on EC2](evidence/api-gateway-lb-proxy/04-ec2-containers.png)
+
+- [x] `05-api-gateway-route.png`: API Gateway integration. Route `ANY /{proxy+}` forwards to `http://<EC2_PUBLIC_IP>:8080/{proxy}`.
+
+![API Gateway integration](evidence/api-gateway-lb-proxy/05-api-gateway-route.png)
+
+- [x] `05b-api-gateway-routes.png`: API Gateway route `ANY /{proxy+}`
+
+![API Gateway route](evidence/api-gateway-lb-proxy/05b-api-gateway-routes.png)
+
+- [x] [`06-apigw-check.txt`](evidence/api-gateway-lb-proxy/06-apigw-check.txt): `check_proxy.py` against the API Gateway invoke URL. All 6 requests succeed and are split 3/3 between `backend-1` and `backend-2`, proving the full path client -> API Gateway -> nginx -> backends.
+
+### Summary
+
+| Path | Requests | Result |
+|---|---|---|
+| Local, direct to nginx (`localhost:8080`) | 6 | 3 / 3, all OK |
+| Local, `backend-1` stopped | 6 | 0 / 6 (all by `backend-2`), all OK |
+| AWS, direct to nginx (`EC2_IP:8080`) | 6 | 3 / 3, all OK |
+| AWS, through API Gateway | 6 | 3 / 3, all OK |
 
 ## 6. Trade-offs and limits
 
