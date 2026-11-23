@@ -1,0 +1,14 @@
+﻿Target : http://localhost:8080
+Sending 6 requests
+
+[PASS] request 1: estado=OK answered by backend-2
+[PASS] request 2: estado=OK answered by backend-2
+[PASS] request 3: estado=OK answered by backend-2
+[PASS] request 4: estado=OK answered by backend-2
+[PASS] request 5: estado=OK answered by backend-2
+[PASS] request 6: estado=OK answered by backend-2
+
+Requests per backend:
+  backend-2: 6
+
+Result: ALL REQUESTS OK
